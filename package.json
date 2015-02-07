@@ -1,0 +1,22 @@
+{
+  "name": "promises-of-mongo",
+  "version": "0.1.0",
+  "description": "An ES6 yieldable wrapper for Mongo, made with Koa in mind.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/clintonjrobinson/promises-of-mongo.git"
+  },
+  "keywords": [
+    "mongodb",
+    "koa",
+    "promise",
+    "es6",
+    "yield"
+  ],
+  "dependencies": {
+    "mongodb": "^2.0.14"
+  },
+  "author": "Clinton J Robinson",
+  "license": "Apache 2.0",
+  "homepage": "https://github.com/clintonjrobinson/promises-of-mongo"
+}
