@@ -120,7 +120,9 @@ Mongo.prototype.insert = function(collection, doc) {
 
   return new Promise(function(resolve, reject) {
     function go() {
-      self.db.collection(collection).insertOne(doc, function(err, result) {
+      var func = Array.isArray(doc) ? 'insertMant' : 'insertOne';
+
+      self.db.collection(collection)[func](doc, function(err, result) {
         if (err) {
           reject(err);
           return;
