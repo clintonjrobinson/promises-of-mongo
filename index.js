@@ -79,6 +79,7 @@ Mongo.prototype.findOne = function(collection, query, options) {
   return new Promise(function(resolve, reject) {
     function go() {
       self.db.collection(collection).findOne(query, options, function(err, doc) {
+
         err
           ? reject(err)
           : resolve(doc)
@@ -120,7 +121,7 @@ Mongo.prototype.insert = function(collection, doc) {
 
   return new Promise(function(resolve, reject) {
     function go() {
-      var func = Array.isArray(doc) ? 'insertMant' : 'insertOne';
+      var func = Array.isArray(doc) ? 'insertMany' : 'insertOne';
 
       self.db.collection(collection)[func](doc, function(err, result) {
         if (err) {
@@ -128,7 +129,11 @@ Mongo.prototype.insert = function(collection, doc) {
           return;
         }
 
-        resolve(result);
+        if (func === 'insertMany') {
+          resolve(result.ops);
+        } else {
+          resolve(result.ops[0]);
+        }
       });
     }
 
