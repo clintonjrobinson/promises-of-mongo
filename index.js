@@ -96,14 +96,36 @@ Mongo.prototype.findOne = function(collection, query, options) {
   });
 };
 
-Mongo.prototype.findAndModify = function(collection, query, update, options) {
+Mongo.prototype.findOneAndDelete = function(collection, query, options) {
   var self = this;
 
   options = options || {};
 
   return new Promise(function(resolve, reject) {
     function go() {
-      self.db.collection(collection).findAndModify(query, ['_id'], update, options, function(err, doc) {
+      self.db.collection(collection).findOneAndDelete(query, ['_id'], options, function(err, doc) {
+        err
+          ? reject(err)
+          : resolve(doc)
+        ;
+      });
+    }
+
+    self.db
+      ? go()
+      : self.connect().then(go).catch(reject)
+    ;
+  });
+};
+
+Mongo.prototype.findOneAndUpdate = function(collection, query, update, options) {
+  var self = this;
+
+  options = options || {};
+
+  return new Promise(function(resolve, reject) {
+    function go() {
+      self.db.collection(collection).findOneAndUpdate(query, ['_id'], update, options, function(err, doc) {
         err
           ? reject(err)
           : resolve(doc)
@@ -137,6 +159,27 @@ Mongo.prototype.insert = function(collection, doc) {
           resolve(result.ops[0]);
         }
       });
+    }
+
+    self.db ?
+      go()
+      : self.connect().then(go).catch(reject);
+  });
+};
+
+Mongo.prototype.createIndexes = function(collection, indexes) {
+  var self = this;
+
+  return new Promise(function(resolve, reject) {
+    function go() {
+      self.db.collection(collection).createIndexes(indexes, function(err, result) {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        resolve(result);
+      })
     }
 
     self.db ?
