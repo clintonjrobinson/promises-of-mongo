@@ -125,7 +125,7 @@ Mongo.prototype.findOneAndUpdate = function(collection, query, update, options) 
 
   return new Promise(function(resolve, reject) {
     function go() {
-      self.db.collection(collection).findOneAndUpdate(query, ['_id'], update, options, function(err, doc) {
+      self.db.collection(collection).findOneAndUpdate(query, update, options, function(err, doc) {
         err
           ? reject(err)
           : resolve(doc)
