@@ -103,7 +103,7 @@ Mongo.prototype.findOneAndDelete = function(collection, query, options) {
 
   return new Promise(function(resolve, reject) {
     function go() {
-      self.db.collection(collection).findOneAndDelete(query, ['_id'], options, function(err, doc) {
+      self.db.collection(collection).findOneAndDelete(query, options, function(err, doc) {
         err
           ? reject(err)
           : resolve(doc)
