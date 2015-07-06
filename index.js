@@ -19,8 +19,6 @@ function Mongo(config) {
   if (!this.config.url) {
     this.config.url = 'mongodb://' + this.config.host + ':' + this.config.port + '/' + this.config.db;
   }
-
-  console.log(this.config.url);
 }
 
 Mongo.prototype.connect = function() {
