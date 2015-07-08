@@ -138,6 +138,28 @@ Mongo.prototype.findOneAndUpdate = function(collection, query, update, options) 
   });
 };
 
+Mongo.prototype.count = function(collection, query, options) {
+  var self = this;
+
+  options = options || {};
+
+  return new Promise(function(resolve, reject) {
+    function go() {
+      self.db.collection(collection).count(query, options, function(err, count) {
+        err ?
+          reject(err) :
+          resolve(count)
+        ;
+      });
+    }
+
+    self.db ?
+      go()
+      : self.connect().then(go).catch(reject)
+    ;
+  });
+};
+
 Mongo.prototype.insert = function(collection, doc) {
   var self = this;
 
