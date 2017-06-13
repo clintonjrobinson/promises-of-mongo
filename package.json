@@ -14,7 +14,7 @@
     "yield"
   ],
   "dependencies": {
-    "mongodb": "^2.2.11"
+    "mongodb": "^2.2.28"
   },
   "author": "Clinton J Robinson",
   "license": "Apache 2.0",
